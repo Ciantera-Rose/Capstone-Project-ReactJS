@@ -1,7 +1,21 @@
 import React from "react";
 
+import UsersList from "../components/UsersList";
+
 const Users = () => {
-  return <h2>Test User Page</h2>;
+  const USERS = [
+    {
+      id: "u1",
+      name: "Ciantera Rose",
+      image: "https://source.unsplash.com/random",
+      locations: 3,
+    },
+  ];
+  return <UsersList items={USERS} />;
 };
 
 export default Users;
+
+// Show list of users and how many locations they have shared
+// List of users => accept props in new UsersList
+// Items users have shared => UserItem
