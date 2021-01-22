@@ -19,3 +19,5 @@ export default Users;
 // Show list of users and how many locations they have shared
 // List of users => accept props in new UsersList
 // Items users have shared => UserItem
+
+// No users found working when commented out
