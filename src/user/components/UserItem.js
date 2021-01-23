@@ -2,14 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import UserAvatar from "../../presentational-components/UserAvatar";
+import UserCard from "../../presentational-components/UserCard";
 
-const UsersItem = (props) => {
+const UserItem = (props) => {
   return (
     <li className="user-item">
-      <div className="user-item-content">
+      <UserCard className="user-item-content">
         <Link to={`/${props.id}/places`}>
           <div className="user-item-image">
-            <UserAvatar src={props.image} alt={props.name} />
+            <UserAvatar image={props.image} alt={props.name} />
           </div>
           <div className="user-item-info">
             <h2>{props.name}</h2>
@@ -19,12 +20,12 @@ const UsersItem = (props) => {
             </h3>
           </div>
         </Link>
-      </div>
+      </UserCard>
     </li>
   );
 };
 
-export default UsersItem;
+export default UserItem;
 
 // List wrapper
 // Div wrapper div 1
