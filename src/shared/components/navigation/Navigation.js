@@ -3,22 +3,30 @@ import { Link } from "react-router-dom";
 
 import Header from "./Header";
 import NavLinks from "./NavLinks";
+import SideDrawer from "./SideDrawer";
 
 const Navigation = (props) => {
   return (
-    <Header>
-      <button className="nav-menu-btn">
-        <span />
-        <span />
-        <span />
-      </button>
-      <h1 className="nav-title">
-        <Link to="/">Your Locations</Link>
-      </h1>
-      <nav className="header-nav">
-        <NavLinks />
-      </nav>
-    </Header>
+    <React.Fragment>
+      <SideDrawer>
+        <nav>
+          <NavLinks />
+        </nav>
+      </SideDrawer>
+      <Header>
+        <button className="nav-menu-btn">
+          <span />
+          <span />
+          <span />
+        </button>
+        <h1 className="nav-title">
+          <Link to="/">Your Locations</Link>
+        </h1>
+        <nav className="header-nav">
+          <NavLinks />
+        </nav>
+      </Header>
+    </React.Fragment>
   );
 };
 
