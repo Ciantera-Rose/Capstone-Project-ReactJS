@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Header from "./Header";
+import NavLinks from "./NavLinks";
 
 const Navigation = (props) => {
   return (
@@ -14,7 +15,9 @@ const Navigation = (props) => {
       <h1 className="nav-title">
         <Link to="/">Your Locations</Link>
       </h1>
-      <navlinks>...</navlinks>
+      <nav className="header-nav">
+        <NavLinks />
+      </nav>
     </Header>
   );
 };
@@ -30,3 +33,5 @@ export default Navigation;
 // Header shows user locations
 // Btn to open side drawer
 // Include NavLinks inside the drawer
+
+// An obj property pathname: A string representing the path to link to.
