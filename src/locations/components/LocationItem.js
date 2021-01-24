@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 import UserCard from "../../presentational-components/UserCard";
 
 const LocationItem = (props) => {
+  const [showMap, setShowMap] = useState(false);
+
+  const openMapHandler = () => setShowMap(true);
+
+  const closeMapHandler = () => setShowMap(false);
   return (
     <li className="location-item">
       <UserCard className="location-item-content">
@@ -16,7 +21,9 @@ const LocationItem = (props) => {
         </div>
         <div className="location-item-actions">
           <button>VIEW ON MAP</button>
-          <button>EDIT LOCATION</button>
+          <button to={`/locations/${props.id}`} n>
+            EDIT LOCATION
+          </button>
           <button>DELETE</button>
         </div>
       </UserCard>
