@@ -1,5 +1,6 @@
 import React from "react";
 
+import UserCard from "../../presentational-components/UserCard";
 import LocationItem from "./LocationItem";
 
 const LocationList = (props) => {
@@ -17,7 +18,8 @@ const LocationList = (props) => {
   return (
     <ul>
       {props.items.map((location) => (
-        <Location
+        <LocationItem
+          key={location.id}
           id={location.id}
           image={location.imageUrl}
           title={location.title}

@@ -9,6 +9,7 @@ import {
 import Users from "./user/pages/Users";
 import NewLocation from "./locations/pages/NewLocation";
 import Navigation from "./shared/components/navigation/Navigation";
+import UserLocations from "../src/locations/pages/UserLocations";
 
 const App = () => {
   return (
@@ -18,6 +19,9 @@ const App = () => {
         <Switch>
           <Route path="/" exact>
             <Users />
+          </Route>
+          <Route path="/:userId/locations" exact>
+            <UserLocations />
           </Route>
           <Route path="/locations/new" exact>
             <NewLocation />
@@ -34,4 +38,4 @@ export default App;
 // Main wraps header elements. Profile card needs to be below
 // Style the header and Nav links for web app
 // Style humburger btn
-// 
+// Use dynamic route for userId
