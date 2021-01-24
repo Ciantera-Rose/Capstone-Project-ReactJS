@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 import LocationList from "../components/LocationList";
 
@@ -34,7 +35,11 @@ const MOCK_LOCATIONS = [
 ];
 
 const UserLocations = () => {
-  return <LocationList items={MOCK_LOCATIONS} />;
+  const userId = useParams().userId;
+  const loadedLocations = MOCK_LOCATIONS.filter(
+    (location) => location.userId === userId
+  );
+  return <LocationList items={loadedLocations} />;
 };
 
 export default UserLocations;
@@ -46,3 +51,7 @@ export default UserLocations;
 // Need Location item Component to pass to list
 // Pass Mock data props
 // Adjust routes in app js so correct pages are loaded
+
+// TODO: Need to only show location that belongs to specfic user
+// useParams hook (functional comp) returns obj of key/value pairs of URL parameters
+// Filter locations to return new array
