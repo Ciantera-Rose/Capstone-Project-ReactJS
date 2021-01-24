@@ -4,7 +4,13 @@ import Input from "../../shared/components/form/Input";
 const NewLocation = () => {
   return (
     <form className="location-form">
-      <Input element="input" type="text" label="Location Title" />
+      <Input
+        element="input"
+        type="text"
+        label="Location Title"
+        validators={[]}
+        erroText="Please enter a valid title"
+      />
     </form>
   );
 };
