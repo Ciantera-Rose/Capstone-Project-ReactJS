@@ -9,26 +9,26 @@ import BackDrop from "../../../presentational-components/BackDrop";
 const Navigation = (props) => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
-  const openDrawer = () => {
+  const openDrawerHandler = () => {
     setDrawerIsOpen(true);
   };
 
-  const closeDrawer = () => {
+  const closeDrawerHandler = () => {
     setDrawerIsOpen(false);
   };
 
   return (
     <React.Fragment>
-      {drawerIsOpen && <BackDrop onClick={closeDrawer} />}
+      {drawerIsOpen && <BackDrop onClick={closeDrawerHandler} />}
       {drawerIsOpen && (
-        <SideDrawer>
+        <SideDrawer show={drawerIsOpen} onClick={closeDrawerHandler}>
           <nav className="drawer-nav">
             <NavLinks />
           </nav>
         </SideDrawer>
       )}
       <Header>
-        <button className="nav-menu-btn" onClick={openDrawer}>
+        <button className="nav-menu-btn" onClick={openDrawerHandler}>
           <span />
           <span />
           <span />

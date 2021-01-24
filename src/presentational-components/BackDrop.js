@@ -11,3 +11,8 @@ const BackDrop = (props) => {
 export default BackDrop;
 
 // Render in Navigation w/ drawerIsOpen
+// CSS Trasnition library. Add animation if add item to DOM or render item for the first time or remove it.
+// Tell the library when the side drawer becomes visible
+// Can wrap around aside element
+// React Transtition Group doc
+// Add and remove from DOM when visible or not visible depending on state
