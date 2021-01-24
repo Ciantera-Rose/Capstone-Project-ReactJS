@@ -32,3 +32,6 @@ const App = () => {
 export default App;
 
 // Main wraps header elements. Profile card needs to be below
+// Style the header and Nav links for web app
+// Style humburger btn
+// 
