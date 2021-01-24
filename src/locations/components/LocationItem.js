@@ -5,7 +5,7 @@ import UserCard from "../../presentational-components/UserCard";
 const LocationItem = (props) => {
   return (
     <li className="location-item">
-      <UserCard>
+      <UserCard className="location-item-content">
         <div className="location-item-image">
           <img src={props.image} alt={props.title} />
         </div>
@@ -14,7 +14,7 @@ const LocationItem = (props) => {
           <h3>{props.address}</h3>
           <p>{props.description}</p>
         </div>
-        <div>
+        <div className="location-item-actions">
           <button>VIEW ON MAP</button>
           <button>EDIT LOCATION</button>
           <button>DELETE</button>

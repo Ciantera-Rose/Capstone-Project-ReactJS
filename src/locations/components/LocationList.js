@@ -6,7 +6,7 @@ import LocationItem from "./LocationItem";
 const LocationList = (props) => {
   if (props.items.length === 0) {
     return (
-      <div className="">
+      <div className="location-list-center">
         <UserCard>
           <h2>No Locations found. Please add a location</h2>
           <button>Share Location</button>
@@ -16,7 +16,7 @@ const LocationList = (props) => {
   }
 
   return (
-    <ul>
+    <ul className="location-list">
       {props.items.map((location) => (
         <LocationItem
           key={location.id}

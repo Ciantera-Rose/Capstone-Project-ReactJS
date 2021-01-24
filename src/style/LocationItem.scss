@@ -1,0 +1,44 @@
+.location-item {
+  margin: 1rem 0;
+}
+
+.location-item-content {
+  padding: 0;
+}
+
+.location-item-info {
+  text-align: center;
+  padding: 1rem;
+}
+
+.location-item-image {
+  width: 100%;
+  height: 12.5rem;
+  margin-right: 1.5rem;
+}
+
+.location-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.location-item-actions {
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid gray;
+}
+
+// TODO modal content
+// TODO modal actions
+
+.location-item-actions button,
+.location-item-actions a {
+  margin: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .location-item-image {
+    height: 20rem;
+  }
+}
