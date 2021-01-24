@@ -26,15 +26,25 @@
 .location-item-actions {
   text-align: center;
   padding: 1rem;
-  border-top: 1px solid gray;
+  border-top: 1px solid #ccc;
 }
 
-// TODO modal content
-// TODO modal actions
+.location-item-modal-content {
+  padding: 0;
+}
+
+.location-item-modal-actions {
+  text-align: right;
+}
 
 .location-item-actions button,
 .location-item-actions a {
   margin: 0.5rem;
+}
+
+.map-container {
+  height: 15rem;
+  width: 100%;
 }
 
 @media (min-width: 768px) {

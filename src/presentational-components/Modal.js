@@ -4,15 +4,15 @@ import { CSSTransition } from "react-transition-group";
 
 import BackDrop from "./BackDrop";
 
-const ModalOverLay = (props) => {
+const ModalOverlay = (props) => {
   const content = (
     <div className={`modal ${props.className}`} style={props.style}>
-      <header>
+      <header className={`modal-header ${props.headerClass}`}>
         <h2>{props.header}</h2>
       </header>
       <form
         onSubmit={
-          props.onSubmit ? props.Submit : (event) => event.preventDefault
+          props.onSubmit ? props.Submit : (event) => event.preventDefault()
         }
       >
         <div className={`modal-content ${props.contentClass}`}>
@@ -39,7 +39,7 @@ const Modal = (props) => {
         classNames="modal"
       >
         <ModalOverlay {...props} />
-        {/* takes key/val pairs of props obj and spreads as attributes? */}
+        {/* takes key/val pairs of props obj and spreads as attributes... */}
       </CSSTransition>
     </div>
   );
@@ -55,3 +55,5 @@ export default Modal;
 // footer for modal => w/ buttons
 
 // Add modal backdrop and animation from sidedrawer
+
+// Add to LocationItem to View on map to manage state
