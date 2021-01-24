@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import UserCard from "../../presentational-components/UserCard";
 import Modal from "../../presentational-components/Modal";
+import Map from "../../presentational-components/Map";
 
 const LocationItem = (props) => {
   const [showMap, setShowMap] = useState(false);
@@ -20,7 +21,7 @@ const LocationItem = (props) => {
         footer={<button onClick={closeMapHandler}>CLOSE</button>}
       >
         <div className="map-container">
-          <h2>MAP GOES HERE</h2>
+          <Map center={props.coordinates} zoom={16} />
         </div>
       </Modal>
       <li className="location-item">
