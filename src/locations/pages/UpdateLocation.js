@@ -6,6 +6,7 @@ import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
 } from "../../shared/components/utility/Validators";
+import { useForm } from "../../shared/components/hooks/Form-hook";
 
 const MOCK_LOCATIONS = [
   {
@@ -43,6 +44,25 @@ const UpdateLocation = () => {
 
   const updatedLocation = MOCK_LOCATIONS.find((l) => l.id === locationId);
 
+  const [formState, InputHandler] = useForm(
+    {
+      title: {
+        value: updatedLocation.title,
+        isValid: true,
+      },
+      description: {
+        value: updatedLocation.description,
+        isValid: true,
+      },
+    },
+    true
+  );
+
+  const locationUpdateSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(formState.inputs);
+  };
+
   if (!updatedLocation) {
     return (
       <div className="center">
@@ -51,7 +71,7 @@ const UpdateLocation = () => {
     );
   }
   return (
-    <form className="location-form">
+    <form className="location-form" onSubmit={locationUpdateSubmitHandler}>
       <Input
         id="title"
         element="input"
@@ -59,9 +79,9 @@ const UpdateLocation = () => {
         label="Location Title"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid location."
-        onInput={() => {}}
-        value={updatedLocation.title}
-        valid={true}
+        onInput={InputHandler}
+        initialValue={formState.inputs.title.value}
+        initialValue={formState.inputs.title.isValid}
       />
       <Input
         id="description"
@@ -69,11 +89,11 @@ const UpdateLocation = () => {
         label="Description"
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Please enter at least 5 characters for a valid description."
-        onInput={() => {}}
-        value={updatedLocation.description}
-        valid={true}
+        onInput={InputHandler}
+        initialValue={formState.inputs.description.value}
+        initialValue={formState.inputs.description.isValid}
       />
-      <button type="submit" disabled={true}>
+      <button type="submit" disabled={!formState.isValid}>
         UPDATE LOCATION
       </button>
     </form>
