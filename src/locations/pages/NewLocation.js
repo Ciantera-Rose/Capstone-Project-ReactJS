@@ -1,7 +1,10 @@
 import React, { useCallback, useReducer } from "react";
 
 import Input from "../../shared/components/form/Input";
-import { VALIDATOR_REQUIRE } from "../../shared/components/utility/Validators";
+import {
+  VALIDATOR_REQUIRE,
+  VALIDATOR_MINLENGTH,
+} from "../../shared/components/utility/Validators";
 
 const formReducer = (state, action) => {
   switch (action.type) {
@@ -9,14 +12,14 @@ const formReducer = (state, action) => {
       let formIsValid = true;
       for (const inputId in state.inputs) {
         if (inputId === action.inputId) {
-          formIsValid = formisValid && action.isValid;
+          formIsValid = formIsValid && action.isValid;
         } else {
           formIsValid = formIsValid && state.inputs[inputId].isValid;
         }
       }
       return {
         ...state,
-        input: {
+        inputs: {
           ...state.inputs,
           [action.inputId]: { value: action.value, isValid: action.isValid },
         },
@@ -28,8 +31,7 @@ const formReducer = (state, action) => {
 };
 
 const NewLocation = () => {
-  const [formState, dispatch] = useReducer(formReducer);
-  useReducer(formReducer, {
+  const [formState, dispatch] = useReducer(formReducer, {
     inputs: {
       title: {
         value: "",
@@ -66,12 +68,14 @@ const NewLocation = () => {
       <Input
         id="description"
         element="textarea"
-        type="Description"
-        label="Location Title"
-        validators={[VALIDATOR_MIN_LENGTH(5)]}
+        label="Description"
+        validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Please enter at least 5 characters for a valid description."
         onInput={InputHandler}
       />
+      <button type="submit" disabled={!formState.isValid}>
+        ADD LOCATION
+      </button>
     </form>
   );
 };
