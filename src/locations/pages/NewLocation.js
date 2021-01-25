@@ -1,6 +1,8 @@
 import React from "react";
 
 import Input from "../../shared/components/form/Input";
+import { VALIDATOR_REQUIRE } from "../../shared/components/utility/Validators";
+
 const NewLocation = () => {
   return (
     <form className="location-form">
@@ -8,8 +10,8 @@ const NewLocation = () => {
         element="input"
         type="text"
         label="Location Title"
-        validators={[]}
-        erroText="Please enter a valid title"
+        validators={[VALIDATOR_REQUIRE()]}
+        errorText="Please enter a valid title"
       />
     </form>
   );
