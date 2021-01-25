@@ -1,12 +1,56 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useReducer } from "react";
 
 import Input from "../../shared/components/form/Input";
 import { VALIDATOR_REQUIRE } from "../../shared/components/utility/Validators";
 
-const NewLocation = () => {
-  const titleInputHandler = useCallback((id, value, isValid) => {}, []);
+const formReducer = (state, action) => {
+  switch (action.type) {
+    case "input change":
+      let formIsValid = true;
+      for (const inputId in state.inputs) {
+        if (inputId === action.inputId) {
+          formIsValid = formisValid && action.isValid;
+        } else {
+          formIsValid = formIsValid && state.inputs[inputId].isValid;
+        }
+      }
+      return {
+        ...state,
+        input: {
+          ...state.inputs,
+          [action.inputId]: { value: action.value, isValid: action.isValid },
+        },
+        isValid: formIsValid,
+      };
+    default:
+      return state;
+  }
+};
 
-  const descriptionInputHandler = useCallback((id, value, isValid) => {}, []);
+const NewLocation = () => {
+  const [formState, dispatch] = useReducer(formReducer);
+  useReducer(formReducer, {
+    inputs: {
+      title: {
+        value: "",
+        isValid: false,
+      },
+      description: {
+        value: "",
+        isValid: false,
+      },
+    },
+    isValid: false,
+  });
+
+  const InputHandler = useCallback((id, value, isValid) => {
+    dispatch({
+      type: "input change",
+      value: value,
+      isValid: isValid,
+      inputId: id,
+    });
+  }, []);
 
   return (
     <form className="location-form">
@@ -17,7 +61,7 @@ const NewLocation = () => {
         label="Location Title"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid title."
-        onInput={descriptionInputHandler}
+        onInput={InputHandler}
       />
       <Input
         id="description"
@@ -26,7 +70,7 @@ const NewLocation = () => {
         label="Location Title"
         validators={[VALIDATOR_MIN_LENGTH(5)]}
         errorText="Please enter at least 5 characters for a valid description."
-        onInput={titleInputHandler}
+        onInput={InputHandler}
       />
     </form>
   );
