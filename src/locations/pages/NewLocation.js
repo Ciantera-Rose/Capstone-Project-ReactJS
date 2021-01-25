@@ -54,8 +54,14 @@ const NewLocation = () => {
     });
   }, []);
 
+  const locationSubmitHandler = (event) => {
+    event.preventDefault();
+    // TODO: send data to server
+    console.log(formState.inputs);
+  };
+
   return (
-    <form className="location-form">
+    <form className="location-form" onSubmit={locationSubmitHandler}>
       <Input
         id="title"
         element="input"
@@ -71,6 +77,14 @@ const NewLocation = () => {
         label="Description"
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Please enter at least 5 characters for a valid description."
+        onInput={InputHandler}
+      />
+      <Input
+        id="address"
+        element="input"
+        label="Address"
+        validators={[VALIDATOR_REQUIRE()]}
+        errorText="Please enter a valid address."
         onInput={InputHandler}
       />
       <button type="submit" disabled={!formState.isValid}>
