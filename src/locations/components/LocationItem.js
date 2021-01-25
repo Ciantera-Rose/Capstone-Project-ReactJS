@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import UserCard from "../../presentational-components/UserCard";
 import Modal from "../../presentational-components/Modal";
@@ -36,9 +37,9 @@ const LocationItem = (props) => {
           </div>
           <div className="location-item-actions">
             <button onClick={openMapHandler}>VIEW ON MAP</button>
-            <button to={`/locations/${props.id}`} n>
-              EDIT LOCATION
-            </button>
+            <Link to={`/locations/${props.id}`}>
+              <button>EDIT LOCATION</button>
+            </Link>
             <button>DELETE</button>
           </div>
         </UserCard>

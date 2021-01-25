@@ -51,7 +51,7 @@ const UpdateLocation = () => {
     );
   }
   return (
-    <form>
+    <form className="location-form">
       <Input
         id="title"
         element="input"
