@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import UserCard from "../../presentational-components/UserCard";
 import LocationItem from "./LocationItem";
@@ -9,7 +10,9 @@ const LocationList = (props) => {
       <div className="location-list-center">
         <UserCard>
           <h2>No Locations found. Please add a location</h2>
-          <button>Share Location</button>
+          <Link to="/locations/new">
+            <button>Share Location</button>
+          </Link>
         </UserCard>
       </div>
     );

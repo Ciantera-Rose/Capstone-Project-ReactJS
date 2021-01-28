@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Input from "../../shared/components/form/Input";
+import UserCard from "../../presentational-components/UserCard";
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
@@ -40,23 +41,42 @@ const MOCK_LOCATIONS = [
 ];
 
 const UpdateLocation = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const locationId = useParams().locationId;
 
-  const updatedLocation = MOCK_LOCATIONS.find((l) => l.id === locationId);
-
-  const [formState, InputHandler] = useForm(
+  const [formState, InputHandler, setFormData] = useForm(
     {
       title: {
-        value: updatedLocation.title,
-        isValid: true,
+        value: "",
+        isValid: false,
       },
       description: {
-        value: updatedLocation.description,
-        isValid: true,
+        value: "",
+        isValid: false,
       },
     },
-    true
+    false
   );
+  const updatedLocation = MOCK_LOCATIONS.find((l) => l.id === locationId);
+
+  useEffect(() => {
+    if (updatedLocation) {
+      setFormData(
+        {
+          title: {
+            value: updatedLocation.title,
+            isValid: true,
+          },
+          description: {
+            value: updatedLocation.description,
+            isValid: true,
+          },
+        },
+        true
+      );
+    }
+    setIsLoading(false);
+  }, [setFormData, updatedLocation]);
 
   const locationUpdateSubmitHandler = (event) => {
     event.preventDefault();
@@ -66,10 +86,21 @@ const UpdateLocation = () => {
   if (!updatedLocation) {
     return (
       <div className="center">
-        <h2>Could not find location!</h2>
+        <UserCard>
+          <h2>Could not find location!</h2>
+        </UserCard>
       </div>
     );
   }
+
+  if (isLoading) {
+    return (
+      <div className="center">
+        <h2>Loading...</h2>
+      </div>
+    );
+  }
+
   return (
     <form className="location-form" onSubmit={locationUpdateSubmitHandler}>
       <Input
@@ -81,7 +112,7 @@ const UpdateLocation = () => {
         errorText="Please enter a valid location."
         onInput={InputHandler}
         initialValue={formState.inputs.title.value}
-        initialValue={formState.inputs.title.isValid}
+        initialValid={formState.inputs.title.isValid}
       />
       <Input
         id="description"
@@ -91,7 +122,7 @@ const UpdateLocation = () => {
         errorText="Please enter at least 5 characters for a valid description."
         onInput={InputHandler}
         initialValue={formState.inputs.description.value}
-        initialValue={formState.inputs.description.isValid}
+        initialValid={formState.inputs.description.isValid}
       />
       <button type="submit" disabled={!formState.isValid}>
         UPDATE LOCATION
