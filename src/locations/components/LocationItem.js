@@ -7,10 +7,25 @@ import Map from "../../presentational-components/Map";
 
 const LocationItem = (props) => {
   const [showMap, setShowMap] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const openMapHandler = () => setShowMap(true);
 
   const closeMapHandler = () => setShowMap(false);
+
+  const showDeleteWarningHandler = () => {
+    setShowConfirmModal(true);
+  };
+
+  const cancelDeleteHandler = () => {
+    setShowConfirmModal(false);
+  };
+
+  const confirmDeleteHandler = () => {
+    setShowConfirmModal(false);
+    console.log("DELETEING...");
+  };
+
   return (
     <React.Fragment>
       <Modal
@@ -24,6 +39,23 @@ const LocationItem = (props) => {
         <div className="map-container">
           <Map center={props.coordinates} zoom={16} />
         </div>
+      </Modal>
+      <Modal
+        show={showConfirmModal}
+        onCancel={cancelDeleteHandler}
+        header="Are you sure?"
+        footerClass="location-item-modal-actions"
+        footer={
+          <React.Fragment>
+            <button onClick={cancelDeleteHandler}>CANCEL</button>
+            <button onClick={confirmDeleteHandler}>DELETE</button>
+          </React.Fragment>
+        }
+      >
+        <p>
+          Please verify you want to delete this location? This action cannot be
+          undone."
+        </p>
       </Modal>
       <li className="location-item">
         <UserCard className="location-item-content">
@@ -40,7 +72,7 @@ const LocationItem = (props) => {
             <Link to={`/locations/${props.id}`}>
               <button>EDIT LOCATION</button>
             </Link>
-            <button>DELETE</button>
+            <button onClick={showDeleteWarningHandler}>DELETE</button>
           </div>
         </UserCard>
       </li>
