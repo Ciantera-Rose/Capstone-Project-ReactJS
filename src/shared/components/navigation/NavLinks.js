@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import AuthenticationButton from "../../../user/auth/Authentication-Button";
 
 const NavLinks = () => {
   return (
@@ -17,9 +18,8 @@ const NavLinks = () => {
       <li>
         <NavLink to="/locations/new">ADD PLACE</NavLink>
       </li>
-      {/* render LOGIN if NOT logged in */}
       <li>
-        <NavLink to="/auth">LOGIN</NavLink>
+        <AuthenticationButton />
       </li>
     </ul>
   );

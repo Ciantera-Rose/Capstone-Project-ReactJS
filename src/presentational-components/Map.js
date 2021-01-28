@@ -11,7 +11,7 @@ const Map = (props) => {
       zoom: zoom,
     });
 
-    new window.google.maps.Marker({ position: props.center, map: map });
+    new window.google.maps.Marker({ position: center, map: map });
   }, [center, zoom]);
 
   return (
