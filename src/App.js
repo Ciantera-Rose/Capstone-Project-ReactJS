@@ -5,7 +5,7 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+//import { useAuth0 } from "@auth0/auth0-react";
 
 //import Loading from "../src/presentational-components/Loading";
 import Users from "./user/pages/Users";
@@ -25,7 +25,7 @@ const App = () => {
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
-  });
+  }, []);
   // const { isLoading } = useAuth0();
 
   // if (isLoading) {

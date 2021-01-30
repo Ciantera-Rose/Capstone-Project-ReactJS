@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+
+import AuthContext from "../context/auth-context";
 //import AuthenticationButton from "../../../user/auth/Authentication-Button";
 
-const NavLinks = () => {
+const NavLinks = (props) => {
+  const auth = useContext(AuthContext);
   return (
     <ul className="nav-links">
       <li>
@@ -10,18 +13,27 @@ const NavLinks = () => {
           ALL USERS
         </NavLink>
       </li>
-      {/* render MY LOCATIONS only if logged in */}
-      <li>
-        <NavLink to="/u1/locations">MY LOCATIONS</NavLink>
-      </li>
-      {/* render ADD PLACE only if logged in */}
-      <li>
-        <NavLink to="/locations/new">ADD PLACE</NavLink>
-      </li>
-      <li>
-        <NavLink to="/auth">LOGIN</NavLink>
-        {/* <AuthenticationButton /> */}
-      </li>
+      {auth.isLoggedIn && (
+        <li>
+          <NavLink to="/u1/locations">MY LOCATIONS</NavLink>
+        </li>
+      )}
+      {auth.isLoggedIn && (
+        <li>
+          <NavLink to="/locations/new">ADD PLACE</NavLink>
+        </li>
+      )}
+      {!auth.isLoggedIn && (
+        <li>
+          <NavLink to="/auth">LOGIN</NavLink>
+          {/* <AuthenticationButton /> */}
+        </li>
+      )}
+      {auth.isLoggedIn && (
+        <li>
+          <button onClick={auth.logout}></button>
+        </li>
+      )}
     </ul>
   );
 };
