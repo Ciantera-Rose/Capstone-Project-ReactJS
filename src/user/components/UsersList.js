@@ -13,7 +13,7 @@ const UsersList = (props) => {
       </div>
     );
   }
-  // TODO: How to style UserCard on no users found page
+ 
   return (
     <ul className="users-list">
       {props.items.map((user) => {

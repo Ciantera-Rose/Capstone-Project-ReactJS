@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import AuthenticationButton from "../../../user/auth/Authentication-Button";
+//import AuthenticationButton from "../../../user/auth/Authentication-Button";
 
 const NavLinks = () => {
   return (
@@ -19,7 +19,8 @@ const NavLinks = () => {
         <NavLink to="/locations/new">ADD PLACE</NavLink>
       </li>
       <li>
-        <AuthenticationButton />
+        <NavLink to="/auth">LOGIN</NavLink>
+        {/* <AuthenticationButton /> */}
       </li>
     </ul>
   );

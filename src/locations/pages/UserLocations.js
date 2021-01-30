@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
+//import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import LocationList from "../components/LocationList";
 
 const MOCK_LOCATIONS = [
