@@ -7,3 +7,6 @@ const AuthContext = createContext({
 });
 
 export default AuthContext;
+
+// TODO: add to app, wrap app w/ AuthProvider like Auth0 to
+// handle access to pages loggedIn/!loggedIn ...
