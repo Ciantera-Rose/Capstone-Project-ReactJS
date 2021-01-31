@@ -1,11 +1,11 @@
 import React from "react";
-const loadingImg =
-  "https://cdn.auth0.com/blog/auth0-react-sample/assets/loading.svg";
 
-const Loading = () => (
-  <div className="spinner">
-    <img src={loadingImg} alt="Loading..." />
-  </div>
-);
+const Loading = (props) => {
+  return (
+    <div className={`${props.asOverlay && "spinner-overlay"}`}>
+      <div className="lds-dual-ring"></div>
+    </div>
+  );
+};
 
 export default Loading;
