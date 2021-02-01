@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 const ImgUpload = (props) => {
   const [file, setFile] = useState();
@@ -7,10 +7,21 @@ const ImgUpload = (props) => {
 
   const fileChooserRef = useRef();
 
+  useEffect(() => {
+    if (!file) {
+      return;
+    }
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      setPreviewUrl(fileReader.result);
+    };
+    fileReader.readAsDataURL(file);
+  }, [file]);
+
   const choseImgHandler = (event) => {
     let choseFile;
     let fileIsValid = isValid;
-    if (event.target.files && event.target.length === 1) {
+    if (event.target.files && event.target.files.length === 1) {
       choseFile = event.target.files[0];
       setFile(choseFile);
       setIsValid(true);
@@ -38,12 +49,14 @@ const ImgUpload = (props) => {
 
       <div className={`img-upload ${props.center && "center"}`}>
         <div className="img-upload-preview">
-          <img src="" alt="Preview" />
+          {previewUrl && <img src={previewUrl} alt="Preview" />}
+          {!previewUrl && <p>Please choose an image.</p>}
         </div>
         <button type="button" onClick={chooseImgHandler}>
           CHOOSE IMAGE
         </button>
       </div>
+      {!isValid && <p>{props.errorText}</p>}
     </div>
   );
 };
