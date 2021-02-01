@@ -1,4 +1,3 @@
-import react from "react";
 import React from "react";
 
 import Modal from "./Modal";
