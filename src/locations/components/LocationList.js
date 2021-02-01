@@ -30,6 +30,7 @@ const LocationList = (props) => {
           address={location.address}
           userId={location.user}
           coordinates={location.location}
+          onDelete={props.onDeleteLocation}
         />
       ))}
     </ul>

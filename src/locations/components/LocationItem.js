@@ -4,9 +4,13 @@ import { Link } from "react-router-dom";
 import UserCard from "../../presentational-components/UserCard";
 import Modal from "../../presentational-components/Modal";
 import Map from "../../presentational-components/Map";
+import ErrorModal from "../../presentational-components/ErrorModal";
+import Loading from "../../presentational-components/Loading";
 import AuthContext from "../../shared/components/context/auth-context";
+import useHttp from "../../shared/components/hooks/Http-hook";
 
 const LocationItem = (props) => {
+  const { isLoading, error, sendRequest, clearError } = useHttp();
   const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -23,13 +27,20 @@ const LocationItem = (props) => {
     setShowConfirmModal(false);
   };
 
-  const confirmDeleteHandler = () => {
+  const confirmDeleteHandler = async () => {
     setShowConfirmModal(false);
-    console.log("DELETEING...");
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/locations/${props.id}`,
+        "DELETE"
+      );
+      props.onDelete(props.id);
+    } catch (err) {}
   };
 
   return (
     <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
       <Modal
         show={showMap}
         onCancel={closeMapHandler}
@@ -56,11 +67,12 @@ const LocationItem = (props) => {
       >
         <p>
           Please verify you want to delete this location? This action cannot be
-          undone."
+          undone.
         </p>
       </Modal>
       <li className="location-item">
         <UserCard className="location-item-content">
+          {isLoading && <Loading asOverlay />}
           <div className="location-item-image">
             <img src={props.image} alt={props.title} />
           </div>

@@ -25,6 +25,12 @@ const UserLocations = () => {
     fetchLocations();
   }, [sendRequest, userId]);
 
+  const locationDeleteHandler = (deletedLocationId) => {
+    setloadedLocations((prevLocations) =>
+      prevLocations.filter((location) => location.id !== deletedLocationId)
+    );
+  };
+
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
@@ -34,7 +40,10 @@ const UserLocations = () => {
         </div>
       )}
       {!isLoading && loadedLocations && (
-        <LocationList items={loadedLocations} />
+        <LocationList
+          items={loadedLocations}
+          onDeleteLocation={locationDeleteHandler}
+        />
       )}
     </React.Fragment>
   );
