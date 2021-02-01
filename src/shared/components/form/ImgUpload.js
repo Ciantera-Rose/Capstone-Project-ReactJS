@@ -1,10 +1,25 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 const ImgUpload = (props) => {
+  const [file, setFile] = useState();
+  const [previewUrl, setPreviewUrl] = useState();
+  const [isValid, setIsValid] = useState(false);
+
   const fileChooserRef = useRef();
 
   const choseImgHandler = (event) => {
-    console.log(event.target);
+    let choseFile;
+    let fileIsValid = isValid;
+    if (event.target.files && event.target.length === 1) {
+      choseFile = event.target.files[0];
+      setFile(choseFile);
+      setIsValid(true);
+      fileIsValid = true;
+    } else {
+      setIsValid(false);
+      fileIsValid = false;
+    }
+    props.onInput(props.id, choseFile, fileIsValid);
   };
 
   const chooseImgHandler = () => {
