@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 
 import Loading from "../../presentational-components/Loading";
 import UserCard from "../../presentational-components/UserCard";
+import ImgUpload from "../../shared/components/form/ImgUpload";
 import Input from "../../shared/components/form/Input";
 import {
   VALIDATOR_EMAIL,
@@ -112,6 +113,7 @@ const Auth = () => {
               onInput={inputHandler}
             />
           )}
+          {!isLoginMode && <ImgUpload center id="image" />}
           <Input
             element="input"
             id="email"

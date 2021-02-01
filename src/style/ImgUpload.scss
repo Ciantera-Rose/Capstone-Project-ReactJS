@@ -1,0 +1,21 @@
+.img-upload.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.img-upload-preview {
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.img-upload-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
