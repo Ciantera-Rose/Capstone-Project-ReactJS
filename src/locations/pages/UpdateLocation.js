@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { useParams, useHistory } from "react-router-dom";
 
 import Input from "../../shared/components/form/Input";
 import UserCard from "../../presentational-components/UserCard";
@@ -11,12 +11,14 @@ import {
 } from "../../shared/components/utility/Validators";
 import { useForm } from "../../shared/components/hooks/Form-hook";
 import useHttp from "../../shared/components/hooks/Http-hook";
+import AuthContext from "../../shared/components/context/auth-context";
 
 const UpdateLocation = () => {
+  const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttp();
   const [updatedLocation, setUpdatedLocation] = useState();
-
   const locationId = useParams().locationId;
+  const history = useHistory();
 
   const [formState, InputHandler, setFormData] = useForm(
     {
@@ -57,9 +59,22 @@ const UpdateLocation = () => {
     fetchLocation();
   }, [sendRequest, locationId, setFormData]);
 
-  const locationUpdateSubmitHandler = (event) => {
+  const locationUpdateSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/locations/${locationId}`,
+        "PATCH",
+        JSON.stringify({
+          title: formState.inputs.title.value,
+          description: formState.inputs.description.value,
+        }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+      history.push("/" + auth.userId + "/locations");
+    } catch (err) {}
   };
 
   if (isLoading) {
