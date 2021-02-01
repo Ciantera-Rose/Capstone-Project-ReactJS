@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 //import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import LocationList from "../components/LocationList";
 import useHttp from "../../shared/components/hooks/Http-hook";
+import ErrorModal from "../../presentational-components/ErrorModal";
+import Loading from "../../presentational-components/Loading";
 
 const UserLocations = () => {
   const [loadedLocations, setloadedLocations] = useState();
@@ -21,9 +23,21 @@ const UserLocations = () => {
       } catch (err) {}
     };
     fetchLocations();
-  }, [sendRequest]);
+  }, [sendRequest, userId]);
 
-  return <LocationList items={loadedLocations} />;
+  return (
+    <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && (
+        <div className="center">
+          <Loading />
+        </div>
+      )}
+      {!isLoading && loadedLocations && (
+        <LocationList items={loadedLocations} />
+      )}
+    </React.Fragment>
+  );
 };
 
 export default UserLocations;

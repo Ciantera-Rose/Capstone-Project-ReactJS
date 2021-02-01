@@ -24,7 +24,7 @@ const LocationList = (props) => {
         <LocationItem
           key={location.id}
           id={location.id}
-          image={location.imageUrl}
+          image={location.image}
           title={location.title}
           description={location.description}
           address={location.address}
