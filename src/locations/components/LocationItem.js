@@ -83,12 +83,12 @@ const LocationItem = (props) => {
           </div>
           <div className="location-item-actions">
             <button onClick={openMapHandler}>VIEW ON MAP</button>
-            {auth.isLoggedIn && (
+            {auth.userId === props.userId && (
               <Link to={`/locations/${props.id}`}>
                 <button>EDIT LOCATION</button>
               </Link>
             )}
-            {auth.isLoggedIn && (
+            {auth.userId === props.userId && (
               <button onClick={showDeleteWarningHandler}>DELETE</button>
             )}
           </div>

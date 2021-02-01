@@ -28,7 +28,7 @@ const LocationList = (props) => {
           title={location.title}
           description={location.description}
           address={location.address}
-          userId={location.user}
+          userId={location.userId}
           coordinates={location.location}
           onDelete={props.onDeleteLocation}
         />
