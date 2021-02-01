@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 
 import Input from "../../shared/components/form/Input";
 import UserCard from "../../presentational-components/UserCard";
+import Loading from "../../presentational-components/Loading";
+import ErrorModal from "../../presentational-components/ErrorModal";
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
@@ -12,7 +14,7 @@ import useHttp from "../../shared/components/hooks/Http-hook";
 
 const UpdateLocation = () => {
   const { isLoading, error, sendRequest, clearError } = useHttp();
-  const [loadedLocation, setLoadedLocation] = useState();
+  const [updatedLocation, setUpdatedLocation] = useState();
 
   const locationId = useParams().locationId;
 
@@ -36,36 +38,39 @@ const UpdateLocation = () => {
         const responseData = await sendRequest(
           `http://localhost:5000/api/locations/${locationId}`
         );
-        setLoadedLocation(responseData.location);
+        setUpdatedLocation(responseData.location);
+        setFormData(
+          {
+            title: {
+              value: responseData.location.title,
+              isValid: true,
+            },
+            description: {
+              value: responseData.location.description,
+              isValid: true,
+            },
+          },
+          true
+        );
       } catch (err) {}
     };
-  }, [sendRequest, locationId]);
-
-  useEffect(() => {
-    if (updatedLocation) {
-      setFormData(
-        {
-          title: {
-            value: updatedLocation.title,
-            isValid: true,
-          },
-          description: {
-            value: updatedLocation.description,
-            isValid: true,
-          },
-        },
-        true
-      );
-    }
-    setIsLoading(false);
-  }, [setFormData, updatedLocation]);
+    fetchLocation();
+  }, [sendRequest, locationId, setFormData]);
 
   const locationUpdateSubmitHandler = (event) => {
     event.preventDefault();
     console.log(formState.inputs);
   };
 
-  if (!updatedLocation) {
+  if (isLoading) {
+    return (
+      <div className="center">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (!updatedLocation && !error) {
     return (
       <div className="center">
         <UserCard>
@@ -75,41 +80,38 @@ const UpdateLocation = () => {
     );
   }
 
-  if (isLoading) {
-    return (
-      <div className="center">
-        <h2>Loading...</h2>
-      </div>
-    );
-  }
-
   return (
-    <form className="location-form" onSubmit={locationUpdateSubmitHandler}>
-      <Input
-        id="title"
-        element="input"
-        type="text"
-        label="Location Title"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid location."
-        onInput={InputHandler}
-        initialValue={formState.inputs.title.value}
-        initialValid={formState.inputs.title.isValid}
-      />
-      <Input
-        id="description"
-        element="textarea"
-        label="Description"
-        validators={[VALIDATOR_MINLENGTH(5)]}
-        errorText="Please enter at least 5 characters for a valid description."
-        onInput={InputHandler}
-        initialValue={formState.inputs.description.value}
-        initialValid={formState.inputs.description.isValid}
-      />
-      <button type="submit" disabled={!formState.isValid}>
-        UPDATE LOCATION
-      </button>
-    </form>
+    <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
+      {!isLoading && updatedLocation && (
+        <form className="location-form" onSubmit={locationUpdateSubmitHandler}>
+          <Input
+            id="title"
+            element="input"
+            type="text"
+            label="Location Title"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a valid location."
+            onInput={InputHandler}
+            initialValue={updatedLocation.title}
+            initialValid={true}
+          />
+          <Input
+            id="description"
+            element="textarea"
+            label="Description"
+            validators={[VALIDATOR_MINLENGTH(5)]}
+            errorText="Please enter at least 5 characters for a valid description."
+            onInput={InputHandler}
+            initialValue={updatedLocation.description}
+            initialValid={true}
+          />
+          <button type="submit" disabled={!formState.isValid}>
+            UPDATE LOCATION
+          </button>
+        </form>
+      )}
+    </React.Fragment>
   );
 };
 
