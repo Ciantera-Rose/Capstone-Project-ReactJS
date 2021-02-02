@@ -74,7 +74,10 @@ const LocationItem = (props) => {
         <UserCard className="location-item-content">
           {isLoading && <Loading asOverlay />}
           <div className="location-item-image">
-            <img src={props.image} alt={props.title} />
+            <img
+              src={`http://localhost:5000/${props.image}`}
+              alt={props.title}
+            />
           </div>
           <div className="location-item-info">
             <h2>{props.title}</h2>

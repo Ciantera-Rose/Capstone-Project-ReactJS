@@ -11,6 +11,7 @@ import useHttp from "../../shared/components/hooks/Http-hook";
 import AuthContext from "../../shared/components/context/auth-context";
 import ErrorModal from "../../presentational-components/ErrorModal";
 import Loading from "../../presentational-components/Loading";
+import ImgUpload from "../../shared/components/form/ImgUpload";
 
 const NewLocation = () => {
   const auth = useContext(AuthContext);
@@ -29,6 +30,10 @@ const NewLocation = () => {
         value: "",
         isValid: false,
       },
+      image: {
+        value: null,
+        isValid: false,
+      },
     },
     false
   );
@@ -38,16 +43,16 @@ const NewLocation = () => {
   const locationSubmitHandler = async (event) => {
     event.preventDefault();
     try {
+      const formData = new FormData();
+      formData.append("title", formState.inputs.title.value);
+      formData.append("description", formState.inputs.description.value);
+      formData.append("address", formState.inputs.address.value);
+      formData.append("userId", auth.userId);
+      formData.append("image", formState.inputs.image.value);
       await sendRequest(
         "http://localhost:5000/api/locations",
         "POST",
-        JSON.stringify({
-          title: formState.inputs.title.value,
-          description: formState.inputs.description.value,
-          address: formState.inputs.address.value,
-          userId: auth.userId,
-        }),
-        { "Content-Type": "application/json" }
+        formData
       );
       history.push("/");
     } catch (err) {}
@@ -82,6 +87,11 @@ const NewLocation = () => {
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a valid address."
           onInput={InputHandler}
+        />
+        <ImgUpload
+          id="image"
+          onInput={InputHandler}
+          errorText="Please provide an image."
         />
         <button type="submit" disabled={!formState.isValid}>
           ADD LOCATION
