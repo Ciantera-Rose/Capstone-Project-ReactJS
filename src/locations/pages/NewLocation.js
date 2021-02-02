@@ -52,7 +52,10 @@ const NewLocation = () => {
       await sendRequest(
         "http://localhost:5000/api/locations",
         "POST",
-        formData
+        formData,
+        {
+          Authorization: "Bearer " + auth.token,
+        }
       );
       history.push("/");
     } catch (err) {}
