@@ -23,9 +23,16 @@ const App = () => {
   const login = useCallback((uid, token) => {
     setToken(token);
     setUserId(uid);
+    // const setTokenExpirationDate = newDate(
+    // newDate().getTime() + 1000 * 60 * 60
+    // );
     localStorage.setItem(
       "userData",
-      JSON.stringify({ userId: uid, token: token })
+      JSON.stringify({
+        userId: uid,
+        token: token,
+        // expiration: setTokenExpirationDate,
+      })
     );
   }, []);
 
@@ -98,8 +105,3 @@ const App = () => {
 };
 
 export default App;
-
-// Main wraps header elements. Profile card needs to be below
-// Style the header and Nav links for web app
-// Style humburger btn
-// Use dynamic route for userId
