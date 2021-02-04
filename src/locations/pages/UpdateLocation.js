@@ -38,7 +38,7 @@ const UpdateLocation = () => {
     const fetchLocation = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/locations/${locationId}`
+          `https://cjr-capstone-api.herokuapp.com/api/locations/${locationId}`
         );
         setUpdatedLocation(responseData.location);
         setFormData(
@@ -63,7 +63,7 @@ const UpdateLocation = () => {
     event.preventDefault();
     try {
       await sendRequest(
-        `http://localhost:5000/api/locations/${locationId}`,
+        `https://cjr-capstone-api.herokuapp.com/api/locations/${locationId}`,
         "PATCH",
         JSON.stringify({
           title: formState.inputs.title.value,
@@ -71,6 +71,7 @@ const UpdateLocation = () => {
         }),
         {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
         }
       );
       history.push("/" + auth.userId + "/locations");

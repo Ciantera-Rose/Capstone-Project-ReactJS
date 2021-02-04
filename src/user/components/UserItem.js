@@ -11,7 +11,7 @@ const UserItem = (props) => {
         <Link to={`/${props.id}/locations`}>
           <div className="user-item-image">
             <UserAvatar
-              image={`http://localhost:5000/${props.image}`}
+              image={`https://cjr-capstone-api.herokuapp.com/${props.image}`}
               alt={props.name}
             />
           </div>

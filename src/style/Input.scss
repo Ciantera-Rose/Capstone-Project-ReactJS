@@ -19,7 +19,7 @@
   background: white;
   font: inherit;
   border: 1px solid #ccc;
-  padding: 0.15rem 0.25rem;
+  padding: 0.15rem 0.15rem;
 }
 
 .form-control input:focus,
@@ -31,11 +31,11 @@
 
 .form-control-invalid label,
 .form-control-invalid p {
-  color: red;
+  color: #e0890f;
 }
 
 .form-control-invalid input,
 .form-control-invalid textarea {
-  border-color: red;
+  border-color: crimson;
   background: #f5e9e9;
 }

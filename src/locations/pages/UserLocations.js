@@ -17,7 +17,7 @@ const UserLocations = () => {
     const fetchLocations = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/locations/user/${userId}`
+          `https://cjr-capstone-api.herokuapp.com/api/locations/user/${userId}`
         );
         setloadedLocations(responseData.locations);
       } catch (err) {}

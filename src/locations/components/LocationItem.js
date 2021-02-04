@@ -31,7 +31,7 @@ const LocationItem = (props) => {
     setShowConfirmModal(false);
     try {
       await sendRequest(
-        `http://localhost:5000/api/locations/${props.id}`,
+        `https://cjr-capstone-api.herokuapp.com/api/locations/${props.id}`,
         "DELETE",
         null,
         {
@@ -69,17 +69,14 @@ const LocationItem = (props) => {
           </React.Fragment>
         }
       >
-        <p>
-          Please verify you want to delete this location? This action cannot be
-          undone.
-        </p>
+        <p>Please confirm delete location. This action cannot be undone!</p>
       </Modal>
       <li className="location-item">
         <UserCard className="location-item-content">
           {isLoading && <Loading asOverlay />}
           <div className="location-item-image">
             <img
-              src={`http://localhost:5000/${props.image}`}
+              src={`https://cjr-capstone-api.herokuapp.com/${props.image}`}
               alt={props.title}
             />
           </div>
